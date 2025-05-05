@@ -49,3 +49,40 @@ The included Jupyter notebook:
 5. **(Optional)**: Outputs low-confidence predictions for secondary verification via an LLM (GPT + web search)
 
 ---
+
+Here's a clean, no-code documentation snippet for your GitHub `README.md` that focuses purely on the data, process, and what the `DeepFake.ipynb` notebook does:
+
+---
+
+## Deepfake Detection Module Overview
+
+The deepfake detection module classifies face images as either real or fake. It focuses on frame-level detection using cropped facial images extracted from video datasets. The goal is to build a lightweight yet effective binary classifier capable of identifying deepfakes based on facial artifacts.
+
+### Dataset
+
+I use a curated subset of the **Celeb-DF v2** dataset, which includes:
+
+* **Celeb-real**: Authentic face videos of celebrities
+* **Celeb-synthesis**: Deepfake versions of the real videos
+* **Youtube-real**: Additional real face videos from YouTube
+
+From these sources, a total of \~130,000 facial frames were extracted using MTCNN. Each video contributed up to 20 face crops, and these were labeled and organized into two classes: `real` and `fake`.
+
+The face crops were then split into three sets:
+
+* **Training**: 5,000 samples
+* **Validation**: 1,000 samples
+* **Test**: 1,000 samples
+
+### Notebook Functionality (`DeepFake.ipynb`)
+
+The notebook performs the following steps:
+
+1. **Video Preprocessing**: Loads videos, samples frames, and extracts faces using MTCNN.
+2. **Face Crop Storage**: Saves cropped face images into labeled folders (`real/` and `fake/`).
+3. **Dataset Splitting**: Organizes the images into training, validation, and test sets.
+4. **Model Setup and Training**: Initializes a pretrained ResNet18, modifies it for binary classification, and trains it using PyTorch.
+5. **Evaluation**: Reports accuracy on validation and test sets.
+6. **Model Saving**: Saves the best-performing model to disk.
+
+This module achieves perfect accuracy on the selected subset, demonstrating the model's ability to learn from distinguishable deepfake artifacts in facial images.
